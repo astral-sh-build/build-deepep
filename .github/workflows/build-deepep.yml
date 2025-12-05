@@ -133,6 +133,7 @@ jobs:
           CIBW_BEFORE_ALL: >
             curl -LsSf https://astral.sh/uv/install.sh | sh
           CIBW_BEFORE_BUILD_LINUX: >
+            yum install -y rdma-core-devel &&
             uv pip install typing-extensions==4.12.2 setuptools wheel ninja packaging &&
             uv pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
             uv pip install ${{ env.NVSHMEM_PACKAGE }} &&
