@@ -20,7 +20,6 @@ TORCH_CUDA_ARCH_LIST = {
     ("2.8", "12.9"): "9.0",
     ("2.9", "12.8"): "9.0",
     ("2.9", "12.9"): "9.0",
-    ("2.9", "13.0"): "9.0",
 }
 
 # The architectures to build against.
@@ -48,7 +47,7 @@ PYTORCH_CUDA_RANGES: dict[str, tuple[str, str]] = {
     "2.6": ("11.8", "12.6"),
     "2.7": ("11.8", "12.8"),
     "2.8": ("11.8", "12.9"),
-    "2.9": ("12.6", "13.0"),
+    "2.9": ("12.6", "12.9"),  # CUDA 13 not yet supported (CCCL header issues)
 }
 
 # Actual CUDA versions to build against for each PyTorch version.
@@ -63,8 +62,8 @@ PYTORCH_CUDA_VERSIONS: dict[tuple[str, str], list[str]] = {
     ("2.7", "aarch64"): ["12.8"],
     ("2.8", "x86_64"): ["12.6", "12.8", "12.9"],
     ("2.8", "aarch64"): ["12.9"],
-    ("2.9", "x86_64"): ["12.6", "12.8", "12.9", "13.0"],
-    ("2.9", "aarch64"): ["12.6", "12.8", "12.9", "13.0"],
+    ("2.9", "x86_64"): ["12.6", "12.8", "12.9"],
+    ("2.9", "aarch64"): ["12.6", "12.8", "12.9"],
 }
 
 # The glibc version to use for each PyTorch version, for manylinux builds.
@@ -112,10 +111,6 @@ AUDITWHEEL_CUDA_VERSION_EXCLUDES = {
     "12": [
         "libcudart.so.12",
         "libcudart.so.12.0",
-    ],
-    "13": [
-        "libcudart.so.13",
-        "libcudart.so.13.0",
     ],
 }
 
