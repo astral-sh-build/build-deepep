@@ -69,13 +69,16 @@ PYTORCH_CUDA_VERSIONS: dict[tuple[str, str], list[str]] = {
 
 # The glibc version to use for each PyTorch version, for manylinux builds.
 # See: https://github.com/pytorch/pytorch/blob/main/RELEASE.md#release-compatibility-matrix
+# Note: We use manylinux2_28 (glibc 2.28) because the pytorch/manylinux2_28-builder
+# images have glibc 2.28, and compiling on glibc 2.28 produces symbols incompatible
+# with older glibc versions.
 TORCH_GLIBC_VERSION: dict[str, str] = {
     "2.4": "2_17",
     "2.5": "2_17",
-    "2.6": "2_24",
-    "2.7": "2_24",
-    "2.8": "2_24",
-    "2.9": "2_24",
+    "2.6": "2_28",
+    "2.7": "2_28",
+    "2.8": "2_28",
+    "2.9": "2_28",
 }
 
 AUDITWHEEL_BLANKET_EXCLUDES = [
