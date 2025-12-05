@@ -113,10 +113,9 @@ jobs:
           echo "CI_AUDITWHEEL_EXCLUDES=$(echo ${{ matrix.CI_AUDITWHEEL_EXCLUDES }})" >> $GITHUB_ENV
           # Avoid `echo` quoting to avoid interpreting the semicolon-delimited list as separate commands.
           echo "TORCH_CUDA_ARCH_LIST=\"${{ matrix.TORCH_CUDA_ARCH_LIST }}\"" >> $GITHUB_ENV
-          # Determine NVSHMEM and CCCL packages based on CUDA major version
+          # Determine NVSHMEM package based on CUDA major version
           CUDA_MAJOR=$(echo ${{ matrix.cuda-version }} | cut -d. -f1)
           echo "NVSHMEM_PACKAGE=nvidia-nvshmem-cu${CUDA_MAJOR}" >> $GITHUB_ENV
-          echo "CCCL_PACKAGE=nvidia-cuda-cccl-cu${CUDA_MAJOR}" >> $GITHUB_ENV
 
       - name: Install cibuildwheel
         run: |
@@ -137,7 +136,7 @@ jobs:
             yum install -y rdma-core-devel &&
             uv pip install typing-extensions==4.12.2 setuptools wheel ninja packaging &&
             uv pip install --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
-            uv pip install ${{ env.NVSHMEM_PACKAGE }} ${{ env.CCCL_PACKAGE }} &&
+            uv pip install ${{ env.NVSHMEM_PACKAGE }} nvidia-cuda-cccl &&
             bash build_scripts/prepare_for_build.sh ${{ steps.deepep-version.outputs.version }}
           CIBW_ENVIRONMENT: >
             PATH=$PATH:/root/.local/bin
