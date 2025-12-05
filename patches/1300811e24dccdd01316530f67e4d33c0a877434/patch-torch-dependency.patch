@@ -1,0 +1,31 @@
+diff --git a/setup.py b/setup.py
+index e89a9db..feca213 100644
+--- a/setup.py
++++ b/setup.py
+@@ -3,7 +3,9 @@ import subprocess
+ import setuptools
+ import importlib
+ 
++from packaging.version import parse
+ from pathlib import Path
++import torch
+ from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+ 
+ 
+@@ -113,6 +115,9 @@ if __name__ == '__main__':
+     except Exception as _:
+         revision = ''
+ 
++    TORCH_VERSION = parse(torch.__version__)
++    TORCH_MAJOR, TORCH_MINOR = TORCH_VERSION.major, TORCH_VERSION.minor
++
+     setuptools.setup(name='deep_ep',
+                      version='1.2.1' + revision,
+                      packages=setuptools.find_packages(include=['deep_ep']),
+@@ -124,4 +129,5 @@ if __name__ == '__main__':
+                                        extra_compile_args=extra_compile_args,
+                                        extra_link_args=extra_link_args)
+                      ],
+-                     cmdclass={'build_ext': BuildExtension})
++                     cmdclass={'build_ext': BuildExtension},
++                     install_requires=[f"torch=={TORCH_MAJOR}.{TORCH_MINOR}.*"])
