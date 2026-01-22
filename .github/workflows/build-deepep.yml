@@ -138,7 +138,7 @@ jobs:
             yum install -y rdma-core-devel &&
             uv pip install --system typing-extensions==4.12.2 setuptools wheel ninja packaging &&
             if [ "${MATRIX_CUDA_VERSION}" = "129" ] && [ "${MATRIX_TORCH_VERSION}" = "2.10" ]; then uv pip install --system cuda-bindings==12.9.4; fi &&
-            uv pip install --system --index-strategy unsafe-first-match --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
+            uv pip install --system --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
             uv pip install --system ${{ env.NVSHMEM_PACKAGE }} &&
             bash build_scripts/prepare_for_build.sh ${{ steps.deepep-version.outputs.version }}
           CIBW_ENVIRONMENT: >
