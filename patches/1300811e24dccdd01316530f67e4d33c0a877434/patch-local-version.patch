@@ -1,0 +1,25 @@
+diff --git a/setup.py b/setup.py
+index e89a9db..394ccce 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,6 +1,7 @@
+ import os
+ import subprocess
+ import setuptools
++import torch
+ import importlib
+ 
+ from pathlib import Path
+@@ -113,6 +114,12 @@ if __name__ == '__main__':
+     except Exception as _:
+         revision = ''
+ 
++    # Auto-generate local version from CUDA and PyTorch versions.
++    cuda_version = torch.version.cuda
++    torch_version = ".".join(torch.__version__.split(".")[:2])
++    if cuda_version:
++        revision = f"+cu.{cuda_version}.torch.{torch_version}"
++
+     setuptools.setup(name='deep_ep',
+                      version='1.2.1' + revision,
+                      packages=setuptools.find_packages(include=['deep_ep']),
