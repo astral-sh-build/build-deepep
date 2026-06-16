@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NVSHMEM SLA &mdash; NVSHMEM 3.6.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Acknowledgements" href="acknowledgements.html" />
+    <link rel="prev" title="Troubleshooting And FAQs" href="faq.html" />  
+  <!-- <script src="//assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js"></script> -->
+  <link rel="icon" type="image/x-icon" href="https://www.nvidia.com/favicon.ico" />
+
+  <style>
+  a:link, a:visited {
+    color: #76b900;
+  }
+  a:hover {
+    color: #8c0;
+  }
+  .rst-content dl:not(.docutils) dt {
+    background: rgba(118, 185, 0, 0.1) !important;
+    color: rgba(59,93,0,1) !important;
+    border-top: solid 3px rgba(59,93,0,1) !important;
+  }
+  code.docutils.literal.notranslate {
+      border: none;
+      padding: 0px;
+  }
+  span.pre {
+      color: crimson;
+  }
+  </style>
+  
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+           
+
+          
+            <a href="index.html" class="icon icon-home"> NVSHMEM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.6.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+  <style>
+    /* Sidebar header (and topbar for mobile) */
+    .wy-side-nav-search, .wy-nav-top {
+      background: #76b900;
+    }
+    .wy-side-nav-search a:link, .wy-nav-top a:link {
+      color: #fff;
+    }
+    .wy-side-nav-search a:visited, .wy-nav-top a:visited {
+      color: #fff;
+    }
+    .wy-side-nav-search a:hover, .wy-nav-top a:hover {
+      color: #fff;
+    }
+    .wy-menu-vertical a:link, .wy-menu-vertical a:visited {
+      color: #d9d9d9
+    }
+    .wy-menu-vertical a:active {
+      background-color: #76b900
+    }
+    .wy-side-nav-search>div.version {
+      color: rgba(0, 0, 0, 0.3)
+    }
+  </style>
+  
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#project-homepage-1">Project Homepage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#communication-transports">Communication Transports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#advantages-of-nvshmem">Advantages Of NVSHMEM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#gpu-initiated-communication-and-strong-scaling">GPU-Initiated Communication And Strong Scaling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using.html">Using NVSHMEM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using.html#example-nvshmem-program">Example NVSHMEM Program</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#using-the-nvshmem-infiniband-gpudirect-async-transport">Using the NVSHMEM InfiniBand GPUDirect Async Transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#using-nvshmem-with-mpi-or-openshmem">Using NVSHMEM With MPI or OpenSHMEM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#compiling-nvshmem-programs">Compiling NVSHMEM Programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#running-nvshmem-programs">Running NVSHMEM Programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#communication-model">Communication Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#data-consistency">Data Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#multiprocess-gpu-support">Multiprocess GPU Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using.html#building-nvshmem-applications-libraries">Building NVSHMEM Applications/Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cuda-interactions.html">NVSHMEM and the CUDA Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cuda-interactions.html#the-cuda-execution-model">The CUDA Execution Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#work-submission-in-cuda">Work Submission in CUDA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#the-cuda-abstract-machine">The CUDA Abstract Machine</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cuda-interactions.html#nonlocal-operations-and-the-cuda-execution-model">Nonlocal Operations and the CUDA Execution Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#cuda-streams-and-circular-dependencies">CUDA Streams and Circular Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#cuda-stream-order-and-execution-resources">CUDA Stream Order and Execution Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#cuda-streams-and-false-circular-dependencies">CUDA Streams and False Circular Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#intra-kernel-synchronization">Intra-Kernel Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cuda-interactions.html#ensuring-safe-nonlocal-operations-using-nvshmem-cooperative-kernel-launch">Ensuring Safe Nonlocal Operations Using NVSHMEM Cooperative Kernel Launch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cuda-interactions.html#implicitly-asynchronous-cudamemcpy">Implicitly Asynchronous cudaMemcpy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gen/mem-model.html">Memory Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen/mem-model.html#pointers-to-symmetric-objects">Pointers to Symmetric Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/mem-model.html#ordering-of-operations">Ordering of Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/mem-model.html#atomicity-guarantees">Atomicity Guarantees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/mem-model.html#differences-between-nvshmem-and-openshmem">Differences Between NVSHMEM and OpenSHMEM</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/mem-model.html#ordering-of-blocking-fetching-operations">Ordering of Blocking Fetching Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/mem-model.html#visibility-guarantees">Visibility Guarantees</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gen/exec-model.html">Execution Model</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen/exec-model.html#progress-of-nvshmem-operations">Progress of NVSHMEM Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/exec-model.html#invoking-nvshmem-operations">Invoking NVSHMEM Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gen/const.html">Library Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/handles.html">Library Handles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/env.html">Environment Variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#standard-options">Standard options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#bootstrap-options">Bootstrap options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#additional-options">Additional options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#collectives-options">Collectives options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#transport-options">Transport options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gen/env.html#nvtx-options">NVTX options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">NVSHMEM APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/overview.html">Overview of the APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#unsupported-openshmem-1-3-apis">Unsupported OpenSHMEM 1.3 APIs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#openshmem-1-3-apis-not-supported-over-remote-network-transports">OpenSHMEM 1.3 APIs Not Supported Over Remote Network Transports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#supported-openshmem-apis-openshmem-1-4-and-1-5">Supported OpenSHMEM APIs (OpenSHMEM 1.4 and 1.5)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#nvshmem-api-extensions-for-cpu-threads">NVSHMEM API Extensions For CPU Threads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#nvshmem-api-extensions-for-gpu-threads">NVSHMEM API Extensions For GPU Threads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/overview.html#tile-granular-collective-apis">Tile-Granular Collective APIs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/setup.html">Library Setup, Exit, and Query</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-init"><strong>NVSHMEM_INIT</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-init-attr"><strong>NVSHMEMX_INIT_ATTR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-hostlib-init-attr"><strong>NVSHMEMX_HOSTLIB_INIT_ATTR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-hostlib-finalize"><strong>NVSHMEMX_HOSTLIB_FINALIZE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-get-unique-id"><strong>NVSHMEMX_GET_UNIQUE_ID</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-set-attr-uniqueid-args"><strong>NVSHMEMX_SET_ATTR_UNIQUEID_ARGS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-cumodule-init"><strong>NVSHMEMX_CUMODULE_INIT</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-init-status"><strong>NVSHMEMX_INIT_STATUS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-my-pe"><strong>NVSHMEM_MY_PE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-n-pes"><strong>NVSHMEM_N_PES</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-finalize"><strong>NVSHMEM_FINALIZE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-global-exit"><strong>NVSHMEM_GLOBAL_EXIT</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-ptr"><strong>NVSHMEM_PTR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-mc-ptr"><strong>NVSHMEMX_MC_PTR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-info-get-version"><strong>NVSHMEM_INFO_GET_VERSION</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-info-get-name"><strong>NVSHMEM_INFO_GET_NAME</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmemx-vendor-get-version-info"><strong>NVSHMEMX_VENDOR_GET_VERSION_INFO</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/setup.html#thread-support">Thread Support</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-init-thread"><strong>NVSHMEM_INIT_THREAD</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/setup.html#nvshmem-query-thread"><strong>NVSHMEM_QUERY_THREAD</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/launch.html">Kernel Launch Routines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/launch.html#nvshmemx-collective-launch"><strong>NVSHMEMX_COLLECTIVE_LAUNCH</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/launch.html#nvshmemx-collective-launch-query-gridsize"><strong>NVSHMEMX_COLLECTIVE_LAUNCH_QUERY_GRIDSIZE</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/memory.html">Memory Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/memory.html#nvshmem-malloc-nvshmem-free-nvshmem-align"><strong>NVSHMEM_MALLOC, NVSHMEM_FREE, NVSHMEM_ALIGN</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/memory.html#nvshmem-calloc"><strong>NVSHMEM_CALLOC</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/memory.html#memory-registration">Memory Registration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-register"><strong>NVSHMEMX_BUFFER_REGISTER</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-unregister"><strong>NVSHMEMX_BUFFER_UNREGISTER</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-unregister-all"><strong>NVSHMEMX_BUFFER_UNREGISTER_ALL</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-register-symmetric"><strong>NVSHMEMX_BUFFER_REGISTER_SYMMETRIC</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-register-symmetric-at-preferred-address"><strong>NVSHMEMX_BUFFER_REGISTER_SYMMETRIC_AT_PREFERRED_ADDRESS</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/memory.html#nvshmemx-buffer-unregister-symmetric"><strong>NVSHMEMX_BUFFER_UNREGISTER_SYMMETRIC</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/qp.html">Queue Pair (QP) Specific APIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#qp-handle">QP Handle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#special-qp-handle-values">Special QP Handle Values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#special-pe-values-for-synchronization">Special PE Values for Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#special-qp-values-for-synchronization">Special QP Values for Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#api-categories">API Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#device-side-only">Device-Side Only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#ordering-semantics">Ordering Semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#thread-safety">Thread Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#transport-support-and-compatibility">Transport Support and Compatibility</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-create"><strong>NVSHMEMX_QP_CREATE</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#qp-remote-memory-access">QP Remote Memory Access</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-put"><strong>NVSHMEMX_QP_PUT</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-p"><strong>NVSHMEMX_QP_P</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-get"><strong>NVSHMEMX_QP_GET</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-g"><strong>NVSHMEMX_QP_G</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-put-nbi"><strong>NVSHMEMX_QP_PUT_NBI</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-get-nbi"><strong>NVSHMEMX_QP_GET_NBI</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#qp-signaling-operations">QP Signaling Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-signal-op"><strong>NVSHMEMX_QP_SIGNAL_OP</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-put-signal"><strong>NVSHMEMX_QP_PUT_SIGNAL</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-put-signal-nbi"><strong>NVSHMEMX_QP_PUT_SIGNAL_NBI</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/qp.html#qp-memory-ordering">QP Memory Ordering</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-fence"><strong>NVSHMEMX_QP_FENCE</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/qp.html#nvshmemx-qp-quiet"><strong>NVSHMEMX_QP_QUIET</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/teams.html">Team Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#predefined-and-application-defined-teams">Predefined and Application-Defined Teams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#team-handles">Team Handles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#thread-safety">Thread Safety</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#collective-ordering">Collective Ordering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#team-creation">Team Creation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/teams.html#team-splitting">Team Splitting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/teams.html#arbitrary-team-initialization">Arbitrary Team Initialization</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-my-pe"><strong>NVSHMEM_TEAM_MY_PE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-n-pes"><strong>NVSHMEM_TEAM_N_PES</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-config-t"><strong>NVSHMEM_TEAM_CONFIG_T</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-get-config"><strong>NVSHMEM_TEAM_GET_CONFIG</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-translate-pe"><strong>NVSHMEM_TEAM_TRANSLATE_PE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-split-strided"><strong>NVSHMEM_TEAM_SPLIT_STRIDED</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-split-2d"><strong>NVSHMEM_TEAM_SPLIT_2D</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmem-team-destroy"><strong>NVSHMEM_TEAM_DESTROY</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmemx-team-init"><strong>NVSHMEMX_TEAM_INIT</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/teams.html#nvshmemx-team-get-uniqueid"><strong>NVSHMEMX_TEAM_GET_UNIQUEID</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/rma.html">Remote Memory Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/rma.html#blocking-rma">Blocking RMA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-put"><strong>NVSHMEM_PUT</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-p"><strong>NVSHMEM_P</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-iput"><strong>NVSHMEM_IPUT</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-get"><strong>NVSHMEM_GET</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-g"><strong>NVSHMEM_G</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-iget"><strong>NVSHMEM_IGET</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/rma.html#nonblocking-rma">Nonblocking RMA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-put-nbi"><strong>NVSHMEM_PUT_NBI</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#nvshmem-get-nbi"><strong>NVSHMEM_GET_NBI</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/rma.html#tile-rma">Tile RMA</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#tile-put"><strong>TILE_PUT</strong></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/rma.html#tile-get"><strong>TILE_GET</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/amo.html">Atomic Memory Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch"><strong>NVSHMEM_ATOMIC_FETCH</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-set"><strong>NVSHMEM_ATOMIC_SET</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-compare-swap"><strong>NVSHMEM_ATOMIC_COMPARE_SWAP</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-swap"><strong>NVSHMEM_ATOMIC_SWAP</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch-inc"><strong>NVSHMEM_ATOMIC_FETCH_INC</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-inc"><strong>NVSHMEM_ATOMIC_INC</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch-add"><strong>NVSHMEM_ATOMIC_FETCH_ADD</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-add"><strong>NVSHMEM_ATOMIC_ADD</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch-and"><strong>NVSHMEM_ATOMIC_FETCH_AND</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-and"><strong>NVSHMEM_ATOMIC_AND</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch-or"><strong>NVSHMEM_ATOMIC_FETCH_OR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-or"><strong>NVSHMEM_ATOMIC_OR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-fetch-xor"><strong>NVSHMEM_ATOMIC_FETCH_XOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/amo.html#nvshmem-atomic-xor"><strong>NVSHMEM_ATOMIC_XOR</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/signal.html">Signaling Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#atomicity-guarantees-for-signaling-operations">Atomicity Guarantees for Signaling Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#available-signal-operators">Available Signal Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#nvshmem-put-signal"><strong>NVSHMEM_PUT_SIGNAL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#nvshmem-put-signal-nbi"><strong>NVSHMEM_PUT_SIGNAL_NBI</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#nvshmem-signal-fetch"><strong>NVSHMEM_SIGNAL_FETCH</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#nvshmemx-signal"><strong>NVSHMEMX_SIGNAL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/signal.html#nvshmemx-signal-op"><strong>NVSHMEMX_SIGNAL_OP</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/collectives.html">Collective Communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#team-based-collectives">Team-based collectives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#implicit-team-collectives">Implicit team collectives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#tile-based-collectives">Tile-based Collectives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#tile-helper-functions">Tile helper functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#tile-collective-algorithms">Tile collective algorithms</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#error-codes-returned-from-team-based-collectives">Error codes returned from team-based collectives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#collective-operations-scopes-and-active-sets">Collective operations scopes and active sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-barrier"><strong>NVSHMEM_BARRIER</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-sync"><strong>NVSHMEM_SYNC</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-sync-all"><strong>NVSHMEM_SYNC_ALL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-alltoall"><strong>NVSHMEM_ALLTOALL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-broadcast"><strong>NVSHMEM_BROADCAST</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-fcollect"><strong>NVSHMEM_FCOLLECT</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#nvshmem-reductions"><strong>NVSHMEM_REDUCTIONS</strong></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#and">AND</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#or">OR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#xor">XOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#max">MAX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#min">MIN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#sum">SUM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen/api/collectives.html#prod">PROD</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#tile-reductions"><strong>TILE_REDUCTIONS</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#tile-allgather"><strong>TILE_ALLGATHER</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#tile-broadcast"><strong>TILE_BROADCAST</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/collectives.html#tile-wait"><strong>TILE_WAIT</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/sync.html">Point-To-Point Synchronization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until"><strong>NVSHMEM_WAIT_UNTIL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-all"><strong>NVSHMEM_WAIT_UNTIL_ALL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-any"><strong>NVSHMEM_WAIT_UNTIL_ANY</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-some"><strong>NVSHMEM_WAIT_UNTIL_SOME</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-all-vector"><strong>NVSHMEM_WAIT_UNTIL_ALL_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-any-vector"><strong>NVSHMEM_WAIT_UNTIL_ANY_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-wait-until-some-vector"><strong>NVSHMEM_WAIT_UNTIL_SOME_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test"><strong>NVSHMEM_TEST</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-all"><strong>NVSHMEM_TEST_ALL</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-any"><strong>NVSHMEM_TEST_ANY</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-some"><strong>NVSHMEM_TEST_SOME</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-all-vector"><strong>NVSHMEM_TEST_ALL_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-any-vector"><strong>NVSHMEM_TEST_ANY_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-test-some-vector"><strong>NVSHMEM_TEST_SOME_VECTOR</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/sync.html#nvshmem-signal-wait-until"><strong>NVSHMEM_SIGNAL_WAIT_UNTIL</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gen/api/ordering.html">Memory Ordering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/ordering.html#nvshmem-fence"><strong>NVSHMEM_FENCE</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen/api/ordering.html#nvshmem-quiet"><strong>NVSHMEM_QUIET</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/language_bindings/index.html">Language Bindings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/language_bindings/python/index.html">Python Bindings (NVSHMEM4Py)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/overview.html">NVSHMEM4Py Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/initialization.html">Initialization and Finalization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/memory_management.html">Memory Management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/interoperability.html">Interoperability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/collectives.html">Collective Operations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/rma.html">Remote Memory Access (RMA)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/utils.html">Utility Functions for NVSHMEM4Py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/device/index.html">Python Device APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/index.html#quick-start">Quick Start</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/language_bindings/python/index.html#key-features">Key Features</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/language_bindings/index.html">Language Bindings Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="examples/language_bindings/python/index.html">NVSHMEM4Py Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#uid-based-initialization-example">UID-Based Initialization Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#mpi-comm-based-initialization-example">MPI Comm-Based Initialization Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#torch-distributed-processgroup-initialization-example">Torch.distributed ProcessGroup Initialization Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#simple-p2p-kernel-example">Simple P2P Kernel Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#on-stream-kernels-example">On-stream Kernels Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="examples/language_bindings/python/index.html#pytorch-and-triton-interoperability-example">PyTorch and Triton Interoperability Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#attribute-based-initialization-example">Attribute-Based Initialization Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#collective-launch-example">Collective Launch Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#on-stream-example">On-Stream Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#threadgroup-example">Threadgroup Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#put-on-block-example">Put on Block Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ring-broadcast-example">Ring Broadcast Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#ring-allreduce-example">Ring Allreduce Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#user-buffer-registration-example">User Buffer Registration Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#gemm-allreduce-fused-kernel-example">GEMM + AllReduce Fused Kernel Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Troubleshooting And FAQs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#general-faqs">General FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#prerequisite-faqs">Prerequisite FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#running-nvshmem-programs-faqs">Running NVSHMEM Programs FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#interoperability-with-mpi-faqs">Interoperability With MPI FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#interoperability-with-openshmem-faqs">Interoperability With OpenSHMEM FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#gpu-gpu-interconnection-faqs">GPU-GPU Interconnection FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#nvshmem-api-usage-faqs">NVSHMEM API Usage FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#debugging-faqs">Debugging FAQs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#miscellaneous-faqs">Miscellaneous FAQs</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NVSHMEM SLA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#license-agreement-for-nvidia-software-development-kits">LICENSE AGREEMENT FOR NVIDIA SOFTWARE DEVELOPMENT KITS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#license">1.  License.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">2.  Limitations.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ownership">3.  Ownership.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#no-warranties">4.   No Warranties.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations-of-liability">5.  Limitations of Liability.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#termination">6.   Termination.</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general">7.  General.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nvshmem-supplement-to-software-license-agreement-for-nvidia-software-development-kits">NVSHMEM SUPPLEMENT TO SOFTWARE LICENSE AGREEMENT FOR NVIDIA SOFTWARE DEVELOPMENT KITS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgements.html">Acknowledgements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="acknowledgements.html#notices">Notices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acknowledgements.html#trademarks">Trademarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acknowledgements.html#copyright">Copyright</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NVSHMEM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>NVSHMEM SLA</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nvshmem-sla">
+<h1>NVSHMEM SLA<a class="headerlink" href="#nvshmem-sla" title="Permalink to this headline">¶</a></h1>
+<p>This document is the Software License Agreement (SLA) for NVIDIA NVSHMEM. The
+following contains specific license terms and conditions for NVIDIA NVSHMEM. By
+using NVSHMEM, you agree to comply with all the terms and conditions applicable
+to the specific product(s) included herein.</p>
+<div class="section" id="license-agreement-for-nvidia-software-development-kits">
+<h2>LICENSE AGREEMENT FOR NVIDIA SOFTWARE DEVELOPMENT KITS<a class="headerlink" href="#license-agreement-for-nvidia-software-development-kits" title="Permalink to this headline">¶</a></h2>
+<p>This license agreement, including exhibits attached (“Agreement”) is a legal agreement between you and NVIDIA Corporation (“NVIDIA”) and governs your use of a NVIDIA software development kit (“SDK”).</p>
+<p>Each SDK has its own set of software and materials, but here is a description of the types of items that may be included in a SDK: source code, header files, APIs, data sets and assets (examples include images, textures, models, scenes, videos, native API input/output files), binary software, sample code, libraries, utility programs, programming code and documentation.</p>
+<p>This Agreement can be accepted only by an adult of legal age of majority in the country in which the SDK is used.</p>
+<p>If you are entering into this Agreement on behalf of a company or other legal entity, you represent that you have the legal authority to bind the entity to this Agreement, in which case “you” will mean the entity you represent.</p>
+<p>If you don’t have the required age or authority to accept this Agreement, or if you don’t accept all the terms and conditions of this Agreement, do not download, install or use the SDK.</p>
+<p>You agree to use the SDK only for purposes that are permitted by (a) this Agreement, and (b) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions.</p>
+<div class="section" id="license">
+<h3>1.  License.<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
+<p>1.1 Grant</p>
+<p>Subject to the terms of this Agreement, NVIDIA hereby grants you a non-exclusive, non-transferable license, without the right to sublicense (except as expressly provided in this Agreement) to:</p>
+<ol class="lowerroman simple">
+<li>Install and use the SDK,</li>
+<li>Modify and create derivative works of source code delivered in the SDK, and</li>
+<li>Distribute those portions of the SDK that are identified in this Agreement as distributable, as incorporated into a software application that meets the distribution requirements indicated in this Agreement.</li>
+</ol>
+<p>1.2 Distribution Requirements</p>
+<p>These are the distribution requirements for you to exercise the distribution grant:</p>
+<ol class="lowerroman simple">
+<li>Your application must have material additional functionality, beyond the included portions of the SDK.</li>
+<li>The distributable portions of the SDK shall only be accessed by your application.</li>
+<li>The following notice shall be included in modifications and derivative works of sample source code distributed: “This software contains source code provided by NVIDIA Corporation.”</li>
+<li>Unless a developer tool is identified in this Agreement as distributable, it is delivered for your internal use only.</li>
+<li>The terms under which you distribute your application must be consistent with the terms of this Agreement, including (without limitation) terms relating to the license grant and license restrictions and protection of NVIDIA’s intellectual property rights. Additionally, you agree that you will protect the privacy, security and legal rights of your application users.</li>
+<li>You agree to notify NVIDIA in writing of any known or suspected distribution or use of the SDK not in compliance with the requirements of this Agreement, and to enforce the terms of your agreements with respect to distributed SDK.</li>
+</ol>
+<p>1.3 Authorized Users</p>
+<p>You may allow employees and contractors of your entity or of your subsidiary(ies) to access and use the SDK from your secure network to perform work on your behalf.</p>
+<p>If you are an academic institution you may allow users enrolled or employed by the academic institution to access and use the SDK from your secure network.</p>
+<p>You are responsible for the compliance with the terms of this Agreement by your authorized users. If you become aware that your authorized users didn’t follow the terms of this Agreement, you agree to take reasonable steps to resolve the non-compliance and prevent new occurrences.</p>
+<p>1.4 Pre-Release SDK</p>
+<p>The SDK versions identified as alpha, beta, preview or otherwise as pre-release, may not be fully functional, may contain errors or design flaws, and may have reduced or different security, privacy, accessibility, availability, and reliability standards relative to commercial versions of NVIDIA software and materials. Use of a pre-release SDK may result in unexpected results, loss of data, project delays or other unpredictable damage or loss.
+You may use a pre-release SDK at your own risk, understanding that pre-release SDKs are not intended for use in production or business-critical systems.
+NVIDIA may choose not to make available a commercial version of any pre-release SDK. NVIDIA may also choose to abandon development and terminate the availability of a pre-release SDK at any time without liability.</p>
+<p>1.5  Updates</p>
+<p>NVIDIA may, at its option, make available patches, workarounds or other updates to this SDK. Unless the updates are provided with their separate governing terms, they are deemed part of the SDK licensed to you as provided in this Agreement.</p>
+<p>You agree that the form and content of the SDK that NVIDIA provides may change without prior notice to you. While NVIDIA generally maintains compatibility between versions, NVIDIA may in some cases make changes that introduce incompatibilities in future versions of the SDK.</p>
+<p>1.6  Third Party Licenses</p>
+<p>The SDK may come bundled with, or otherwise include or be distributed with, third party software licensed by a NVIDIA supplier and/or open source software provided under an open source license. Use of third party software is subject to the third-party license terms, or in the absence of third party terms, the terms of this Agreement. Copyright to third party software is held by the copyright holders indicated in the third-party software or license.</p>
+<p>1.7 Reservation of Rights</p>
+<p>NVIDIA reserves all rights, title and interest in and to the SDK not expressly granted to you under this Agreement.</p>
+</div>
+<div class="section" id="limitations">
+<h3>2.  Limitations.<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<p>The following license limitations apply to your use of the SDK:</p>
+<p>2.1 You may not reverse engineer, decompile or disassemble, or remove copyright or other proprietary notices from any portion of the SDK or copies of the SDK.</p>
+<p>2.2 Except as expressly provided in this Agreement, you may not copy, sell, rent, sublicense, transfer, distribute, modify, or create derivative works of any portion of the SDK.</p>
+<p>2.3 Unless you have an agreement with NVIDIA for this purpose, you may not indicate that an application created with the SDK is sponsored or endorsed by NVIDIA.</p>
+<p>2.4 You may not bypass, disable, or circumvent any encryption, security, digital rights management or authentication mechanism in the SDK.</p>
+<p>2.5 You may not use the SDK in any manner that would cause it to become subject to an open source software license. As examples, licenses that require as a condition of use, modification, and/or distribution that the SDK be (i) disclosed or distributed in source code form; (ii) licensed for the purpose of making derivative works; or (iii) redistributable at no charge.</p>
+<p>2.6  Unless you have an agreement with NVIDIA for this purpose, you may not use the SDK with any system or application where the use or failure of the system or application can reasonably be expected to threaten or result in personal injury, death, or catastrophic loss. Examples include use in nuclear, avionics, navigation, military, medical, life support or other life critical applications. NVIDIA does not design, test or manufacture the SDK for these critical uses and NVIDIA shall not be liable to you or any third party, in whole or in part, for any claims or damages arising from such uses.</p>
+<p>2.7 You agree to defend, indemnify and hold harmless NVIDIA and its affiliates, and their respective employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, fines, restitutions and expenses (including but not limited to attorney’s fees and costs incident to establishing the right of indemnification) arising out of or related to your use of the SDK outside of the scope of this Agreement, or not in compliance with its terms.</p>
+</div>
+<div class="section" id="ownership">
+<h3>3.  Ownership.<a class="headerlink" href="#ownership" title="Permalink to this headline">¶</a></h3>
+<p>3.1 NVIDIA or its licensors hold all rights, title and interest in and to the SDK and its modifications and derivative works, including their respective intellectual property rights. This SDK may include software and materials from NVIDIA’s licensors, and these licensors are intended third party beneficiaries that may enforce this Agreement with respect to their intellectual property rights.</p>
+<p>3.2 You may, but don’t have to, provide to NVIDIA suggestions, feature requests or other feedback regarding the SDK, including possible enhancements or modifications to the SDK. For any feedback that you voluntarily provide, you hereby grant NVIDIA and its affiliates a perpetual, non-exclusive, worldwide, irrevocable license to use, reproduce, modify, license, sublicense (through multiple tiers of sublicensees), and distribute (through multiple tiers of distributors) it without the payment of any royalties or fees to you. NVIDIA will use feedback at its choice.</p>
+</div>
+<div class="section" id="no-warranties">
+<h3>4.   No Warranties.<a class="headerlink" href="#no-warranties" title="Permalink to this headline">¶</a></h3>
+<p>THE SDK IS PROVIDED BY NVIDIA “AS IS” AND “WITH ALL FAULTS.” TO THE MAXIMUM EXTENT PERMITTED BY LAW, NVIDIA AND ITS AFFILIATES EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND OR NATURE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT, OR THE ABSENCE OF ANY DEFECTS THEREIN, WHETHER LATENT OR PATENT. NO WARRANTY IS MADE ON THE BASIS OF TRADE USAGE, COURSE OF DEALING OR COURSE OF TRADE.</p>
+</div>
+<div class="section" id="limitations-of-liability">
+<h3>5.  Limitations of Liability.<a class="headerlink" href="#limitations-of-liability" title="Permalink to this headline">¶</a></h3>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, NVIDIA AND ITS AFFILIATES SHALL NOT BE LIABLE FOR ANY SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES, OR ANY LOST PROFITS, LOSS OF USE, LOSS OF DATA OR LOSS OF GOODWILL, OR THE COSTS OF PROCURING SUBSTITUTE PRODUCTS, ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR THE USE OR PERFORMANCE OF THE SDK, WHETHER SUCH LIABILITY ARISES FROM ANY CLAIM BASED UPON BREACH OF CONTRACT, BREACH OF WARRANTY, TORT (INCLUDING NEGLIGENCE), PRODUCT LIABILITY OR ANY OTHER CAUSE OF ACTION OR THEORY OF LIABILITY. IN NO EVENT WILL NVIDIA’S AND ITS AFFILIATES TOTAL CUMULATIVE LIABILITY UNDER OR ARISING OUT OF THIS AGREEMENT EXCEED US$10.00. THE NATURE OF THE LIABILITY OR THE NUMBER OF CLAIMS OR SUITS SHALL NOT ENLARGE OR EXTEND THIS LIMIT.</p>
+<p>These exclusions and limitations of liability shall apply regardless if NVIDIA or its affiliates have been advised of the possibility of such damages, and regardless of whether a remedy fails its essential purpose. These exclusions and limitations of liability form an essential basis of the bargain between the parties, and, absent any of these exclusions or limitations of liability, the provisions of this Agreement, including, without limitation, the economic terms, would be substantially different.</p>
+</div>
+<div class="section" id="termination">
+<h3>6.   Termination.<a class="headerlink" href="#termination" title="Permalink to this headline">¶</a></h3>
+<p>6.1 This Agreement will continue to apply until terminated by either you or NVIDIA as described below.</p>
+<p>6.2 If you want to terminate this Agreement, you may do so by stopping to use the SDK.</p>
+<p>6.3 NVIDIA may, at any time, terminate this Agreement if: (i) you fail to comply with any term of this Agreement and the non-compliance is not fixed within thirty (30) days following notice from NVIDIA (or immediately if you violate NVIDIA’s intellectual property rights); (ii) you commence or participate in any legal proceeding against NVIDIA with respect to the SDK; or (iii) NVIDIA decides to no longer provide the SDK in a country or, in NVIDIA’s sole discretion, the continued use of it is no longer commercially viable.</p>
+<p>6.4 Upon any termination of this Agreement, you agree to promptly discontinue use of the SDK and destroy all copies in your possession or control. Your prior distributions in accordance with this Agreement are not affected by the termination of this Agreement. Upon written request, you will certify in writing that you have complied with your commitments under this section. Upon any termination of this Agreement all provisions survive except for the licenses granted to you.</p>
+</div>
+<div class="section" id="general">
+<h3>7.  General.<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>If you wish to assign this Agreement or your rights and obligations, including by merger, consolidation, dissolution or operation of law, contact NVIDIA to ask for permission. Any attempted assignment not approved by NVIDIA in writing shall be void and of no effect. NVIDIA may assign, delegate or transfer this Agreement and its rights and obligations, and if to a non-affiliate you will be notified.</p>
+<p>You agree to cooperate with NVIDIA and provide reasonably requested information to verify your compliance with this Agreement.</p>
+<p>This Agreement will be governed in all respects by the laws of the United States and of the State of Delaware as those laws are applied to contracts entered into and performed entirely within Delaware by Delaware residents, without regard to the conflicts of laws principles. The United Nations Convention on Contracts for the International Sale of Goods is specifically disclaimed. You agree to all terms of this Agreement in the English language.</p>
+<p>The state or federal courts residing in Santa Clara County, California shall have exclusive jurisdiction over any dispute or claim arising out of this Agreement. Notwithstanding this, you agree that NVIDIA shall still be allowed to apply for injunctive remedies or an equivalent type of urgent legal relief in any jurisdiction.</p>
+<p>If any court of competent jurisdiction determines that any provision of this Agreement is illegal, invalid or unenforceable, such provision will be construed as limited to the extent necessary to be consistent with and fully enforceable under the law and the remaining provisions will remain in full force and effect. Unless otherwise specified, remedies are cumulative.</p>
+<p>Each party acknowledges and agrees that the other is an independent contractor in the performance of this Agreement.</p>
+<p>The SDK is “commercial items” consisting of “commercial computer software” and “commercial computer software documentation” provided, to the extent consistent with a governing federal procurement contract, with RESTRICTED RIGHTS. Contractor/manufacturer is NVIDIA, 2788 San Tomas Expressway, Santa Clara, CA 95051.</p>
+<p>The SDK is subject to United States export laws and regulations. You agree that you will not ship, transfer or export the SDK into any country, or use the SDK in any manner, prohibited by the United States Bureau of Industry and Security or economic sanctions regulations administered by the U.S. Department of Treasury’s Office of Foreign Assets Control (OFAC), or any applicable export laws, restrictions or regulations. These laws include restrictions on destinations, end users and end use. By accepting this Agreement, you confirm that you are not a resident or citizen of any country currently embargoed by the U.S. and that you are not otherwise prohibited from receiving the SDK.</p>
+<p>Any notice delivered by NVIDIA to you under this Agreement will be delivered via mail, email or fax. You agree that any notices that NVIDIA sends you electronically will satisfy any legal communication requirements. Please direct your legal notices or other correspondence to NVIDIA Corporation, 2788 San Tomas Expressway, Santa Clara, California 95051, United States of America, Attention: Legal Department.</p>
+<p>This Agreement and any exhibits incorporated into this Agreement constitute the entire agreement of the parties with respect to the subject matter of this Agreement and supersede all prior negotiations or documentation exchanged between the parties relating to this SDK license. Any additional and/or conflicting terms on documents issued by you are null, void, and invalid. Any amendment or waiver under this Agreement shall be in writing and signed by representatives of both parties.</p>
+<p>(v. September 3, 2019)</p>
+</div>
+</div>
+<div class="section" id="nvshmem-supplement-to-software-license-agreement-for-nvidia-software-development-kits">
+<h2>NVSHMEM SUPPLEMENT TO SOFTWARE LICENSE AGREEMENT FOR NVIDIA SOFTWARE DEVELOPMENT KITS<a class="headerlink" href="#nvshmem-supplement-to-software-license-agreement-for-nvidia-software-development-kits" title="Permalink to this headline">¶</a></h2>
+<p>The terms in this supplement govern your use of the NVIDIA NVSHMEM SDK under the terms of your license agreement (“Agreement”) as modified by this supplement. Capitalized terms used but not defined below have the meaning assigned to them in the Agreement.</p>
+<p>This supplement is an exhibit to the Agreement and is incorporated as an integral part of the Agreement. In the event of conflict between the terms in this supplement and the terms in the Agreement, the terms in this supplement govern.</p>
+<ol class="arabic simple">
+<li>License Scope. The SDK is licensed for you to develop applications only for use in systems with NVIDIA GPUs.</li>
+<li>Distribution. The following portions of the SDK are distributable under the Agreement: any portion of the SDK.</li>
+<li>Licensing. If the distribution terms in this Agreement are not suitable for your organization, or for any questions regarding this Agreement, please contact NVIDIA at <a class="reference external" href="mailto:nvidia-compute-license-questions&#37;&#52;&#48;nvidia&#46;com">nvidia-compute-license-questions<span>&#64;</span>nvidia<span>&#46;</span>com</a>.</li>
+</ol>
+<p>(v. July 11, 2019)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="acknowledgements.html" class="btn btn-neutral float-right" title="Acknowledgements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="faq.html" class="btn btn-neutral float-left" title="Troubleshooting And FAQs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022-2026, NVIDIA Corporation. All rights reserved.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. <jinja2.runtime.BlockReference object at 0x7f45afdb7d30>
+
+<p> </p>
+
+<img src=_static/NVIDIA-LogoBlack.svg class="only-light" width="125" height="125"/>
+<img src=_static/NVIDIA-LogoWhite.svg class="only-dark" width="125" height="125"/>
+
+<div role="contentinfo">
+    <p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+ </p>
+
+<p class="notices">
+
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a class="Link" href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+
+   </p>
+  </div>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    
+  
+
+</body>
+</html>

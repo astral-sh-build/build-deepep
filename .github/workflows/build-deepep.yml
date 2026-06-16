@@ -170,7 +170,7 @@ jobs:
           CIBW_REPAIR_WHEEL_COMMAND_LINUX: "auditwheel repair -w /tmp/cibuildwheel/repaired_wheel {wheel} ${CI_AUDITWHEEL_EXCLUDES}"
           CIBW_BUILD_FRONTEND: "build[uv]; args: --no-isolation"
 
-      - name: Embed SBOM into wheel
+      - name: Embed metadata into wheel
         run: |
           for wheel in dist/*.whl; do
             uv run --script build_scripts/embed_patches.py "$wheel" "build_scripts/patches/${DEEPEP_VERSION}" \
@@ -178,7 +178,12 @@ jobs:
               --source-tag "${DEEPEP_VERSION}" \
               --source-commit "${SOURCE_COMMIT}" \
               --build-repo "https://github.com/astral-sh-build/build-deepep" \
-              --build-commit "${BUILD_COMMIT}"
+              --build-commit "${BUILD_COMMIT}" \
+              --license-expression "MIT AND LicenseRef-NVIDIA-NVSHMEM-SLA-2019" \
+              --license-file "LICENSE:LICENSE" \
+              --license-file "build_scripts/licenses/nvidia-nvshmem/SLA.html:third-party/nvidia-nvshmem/SLA.html" \
+              --license-file "build_scripts/licenses/nvidia-nvshmem/NOTICE.txt:third-party/nvidia-nvshmem/NOTICE.txt" \
+              --license-file "build_scripts/licenses/nvidia-nvshmem/SOURCE.txt:third-party/nvidia-nvshmem/SOURCE.txt"
           done
         env:
           DEEPEP_VERSION: ${{ steps.deepep-version.outputs.version }}
