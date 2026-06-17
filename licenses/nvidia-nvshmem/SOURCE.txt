@@ -1,0 +1,15 @@
+LicenseRef: LicenseRef-NVIDIA-NVSHMEM-SLA-2019
+Component: NVIDIA NVSHMEM-derived source material
+Source: https://docs.nvidia.com/nvshmem/api/sla.html
+SLA version referenced by DeepEP source: September 3, 2019
+
+DeepEP is primarily MIT-licensed, but upstream states that code referencing
+NVSHMEM is subject to the NVSHMEM Software License Agreement. The affected
+source includes `csrc/kernels/ibgda_device.cuh`, which says it contains
+portions derived from NVSHMEM and identifies the NVSHMEM SLA version as
+September 3, 2019, and `third-party/nvshmem.patch`.
+
+The build installs the nvidia-nvshmem-cu* package and links against NVSHMEM,
+while auditwheel excludes NVSHMEM shared/static libraries from vendoring. This
+license material is included because NVSHMEM-derived source is compiled into
+the DeepEP wheel.
