@@ -6,9 +6,9 @@ CUDA, and CPU architectures.
 ## Installation
 
 Following the PyTorch convention, artifacts are published to a separate index for each CUDA
-version. Wheel versions identify the upstream source revision, CUDA version, PyTorch version, and
-C++ ABI used for the build, as in
-`deep-ep==1.2.1+1300811.cu12.8torch2.10.0cxx11abiTRUE`, and require the matching PyTorch release.
+version. Each wheel has a local version suffix that identifies the CUDA and PyTorch versions it was
+built against, such as `deep-ep==1.2.1+cu.12.8.torch.2.10`, and requires the matching PyTorch
+release.
 
 Pre-built wheels are available on [Astral's GPU indexes](https://wheels.astral.sh/index.html).
 For example, to install a CUDA 12.8 build:
