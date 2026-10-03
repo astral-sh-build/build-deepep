@@ -140,7 +140,7 @@ jobs:
           # NVSHMEM 3.4.5 expects the pre-CUDA 13 CCCL include layout.
           CIBW_BEFORE_BUILD_LINUX: >
             yum install -y rdma-core-devel &&
-            uv pip install --system typing-extensions==4.12.2 setuptools wheel ninja packaging &&
+            uv pip install --system typing-extensions==4.16.0 setuptools wheel ninja packaging &&
             if [ "${MATRIX_CUDA_VERSION}" = "129" ] && [ "${MATRIX_TORCH_VERSION}" = "2.10" ]; then uv pip install --system cuda-bindings==12.9.4; fi &&
             uv pip install --system --no-cache-dir torch==${{ matrix.torch-version }} --index-url https://download.pytorch.org/whl/cu${MATRIX_CUDA_VERSION} &&
             uv pip install --system ${{ env.NVSHMEM_PACKAGE }} &&
